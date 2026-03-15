@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ankit Electrical Repairing Home Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --bg:#0a0e1a; --bg2:#111827; --bg3:#1a2235; --card:#141c2e;
+  --blue:#1e90ff; --blue2:#0070e0;
+  --blue-glow:rgba(30,144,255,0.18); --blue-soft:rgba(30,144,255,0.10);
+  --text:#e8edf5; --text2:#8fa3bf;
+  --yellow:#fbbf24; --orange:#f97316; --green:#22c55e; --red:#ef4444;
+  --border:rgba(30,144,255,0.13);
+  --r:16px; --rs:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:10px;}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;
+  background:rgba(10,14,26,0.97);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 16px;}
+.hdr-left{display:flex;align-items:center;gap:10px;}
+.logo{width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),#003fa3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:#fff;box-shadow:0 0 16px var(--blue-glow);}
+.hdr-title{font-size:12.5px;font-weight:700;line-height:1.25;max-width:205px;}
+.hdr-title span{color:var(--blue);}
+.menu-btn{background:none;border:none;color:var(--text);font-size:22px;
+  cursor:pointer;padding:7px;border-radius:8px;transition:background .2s;position:relative;}
+.menu-btn:hover{background:var(--blue-soft);}
+
+/* DROPDOWN */
+.dropdown{position:fixed;top:66px;right:12px;min-width:210px;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--rs);
+  box-shadow:0 10px 36px rgba(0,0,0,.55);overflow:hidden;z-index:500;
+  transform:translateY(-6px) scale(.97);opacity:0;pointer-events:none;
+  transition:all .22s cubic-bezier(.4,0,.2,1);}
+.dropdown.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+.dropdown a{display:flex;align-items:center;gap:12px;padding:14px 18px;
+  color:var(--text);text-decoration:none;font-size:14px;font-weight:500;
+  border-bottom:1px solid var(--border);transition:background .18s;}
+.dropdown a:last-child{border-bottom:none;}
+.dropdown a:hover{background:var(--blue-soft);}
+.dropdown a i{color:var(--blue);width:18px;text-align:center;}
+
+/* PAGES */
+.page{display:none;padding-top:70px;min-height:100vh;padding-bottom:100px;}
+.page.active{display:block;}
+.wrap{padding:14px 16px;}
+
+/* WELCOME CARD */
+.welcome{background:linear-gradient(135deg,#0c1e3d,#162f5f);
+  border:1px solid rgba(30,144,255,.25);border-radius:var(--r);
+  padding:20px;display:flex;align-items:center;gap:14px;
+  position:relative;overflow:hidden;margin-bottom:16px;}
+.welcome::after{content:'';position:absolute;top:-40px;right:-30px;
+  width:130px;height:130px;border-radius:50%;background:rgba(30,144,255,.07);}
+.welcome-icon{width:56px;height:56px;border-radius:14px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),#003fa3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;color:#fff;box-shadow:0 4px 18px rgba(30,144,255,.35);}
+.welcome h2{font-size:15px;font-weight:700;margin-bottom:4px;}
+.welcome p{font-size:11.5px;color:rgba(255,255,255,.7);line-height:1.5;}
+
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:16px;}
+.search-input{width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:40px;padding:11px 16px 11px 42px;
+  color:var(--text);font-size:13.5px;font-family:'Poppins',sans-serif;
+  outline:none;transition:border .2s;}
+.search-input:focus{border-color:var(--blue);}
+.search-input::placeholder{color:var(--text2);}
+.s-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  color:var(--text2);font-size:15px;}
+
+/* SECTION TITLE */
+.sec-title{font-size:14.5px;font-weight:700;margin-bottom:11px;
+  display:flex;align-items:center;gap:8px;}
+.sec-title i{color:var(--blue);}
+
+/* QUICK ACTIONS */
+.qa-row{display:flex;gap:10px;margin-bottom:20px;}
+.qa-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--rs);
+  padding:13px 6px;text-decoration:none;color:var(--text);
+  font-family:'Poppins',sans-serif;cursor:pointer;transition:all .22s;}
+.qa-btn:hover,.qa-btn:active{background:var(--blue-soft);border-color:var(--blue);
+  transform:translateY(-2px);box-shadow:0 6px 20px var(--blue-glow);}
+.qa-ic{width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:18px;}
+.qa-btn span{font-size:10.5px;font-weight:600;text-align:center;line-height:1.3;}
+.qa-call .qa-ic{background:rgba(34,197,94,.15);color:#22c55e;}
+.qa-wa .qa-ic{background:rgba(37,211,102,.15);color:#25d366;}
+.qa-book .qa-ic{background:var(--blue-soft);color:var(--blue);}
+
+/* POPULAR SCROLL */
+.pop-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;
+  margin-bottom:20px;scrollbar-width:none;}
+.pop-scroll::-webkit-scrollbar{display:none;}
+.card-sm{flex-shrink:0;width:148px;background:var(--card);
+  border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;cursor:pointer;transition:all .22s;}
+.card-sm:hover{border-color:var(--blue);transform:translateY(-3px);
+  box-shadow:0 8px 24px var(--blue-glow);}
+.card-sm img{width:100%;height:88px;object-fit:cover;}
+.card-sm .csb{padding:9px;}
+.card-sm .csn{font-size:12px;font-weight:700;margin-bottom:2px;}
+.card-sm .csd{font-size:10px;color:var(--text2);margin-bottom:5px;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-sm .csp{font-size:12.5px;font-weight:700;color:var(--blue);}
+
+/* ALL SERVICES GRID */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.card-g{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .22s;}
+.card-g:hover{border-color:var(--blue);transform:translateY(-3px);
+  box-shadow:0 8px 24px var(--blue-glow);}
+.card-g img{width:100%;height:108px;object-fit:cover;}
+.card-g .cgb{padding:11px;}
+.card-g .cgn{font-size:13px;font-weight:700;margin-bottom:3px;}
+.card-g .cgd{font-size:11px;color:var(--text2);margin-bottom:8px;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.cgr{display:flex;align-items:center;justify-content:space-between;}
+.cgp{font-size:13.5px;font-weight:700;color:var(--blue);}
+.btn-bk{background:var(--blue);color:#fff;border:none;border-radius:20px;
+  padding:5px 11px;font-size:11px;font-weight:600;
+  font-family:'Poppins',sans-serif;cursor:pointer;transition:background .2s;}
+.btn-bk:hover{background:var(--blue2);}
+
+/* SERVICE DETAIL */
+.detail-img{width:100%;height:220px;object-fit:cover;border-radius:var(--r);margin-bottom:14px;}
+.detail-name{font-size:20px;font-weight:800;margin-bottom:7px;}
+.detail-price{font-size:22px;font-weight:700;color:var(--blue);margin-bottom:11px;}
+.detail-desc{font-size:13.5px;color:var(--text2);line-height:1.75;margin-bottom:20px;}
+
+/* BACK BTN */
+.back-btn{display:flex;align-items:center;gap:8px;background:none;border:none;
+  color:var(--blue);font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;padding:10px 0 8px 0;}
+
+/* BOOKING CARDS */
+.bk-card{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:15px;margin-bottom:12px;
+  position:relative;overflow:hidden;}
+.bk-card::before{content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:var(--blue);}
+.bk-svc{font-size:14.5px;font-weight:700;margin-bottom:9px;}
+.bk-row{display:flex;align-items:flex-start;gap:8px;
+  margin-bottom:6px;font-size:12.5px;color:var(--text2);}
+.bk-row i{color:var(--blue);margin-top:2px;width:14px;flex-shrink:0;}
+.bk-row span{flex:1;color:var(--text);}
+.badge{display:inline-flex;align-items:center;gap:5px;
+  padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:700;margin-top:8px;}
+.b-pending{background:rgba(251,191,36,.13);color:var(--yellow);border:1px solid rgba(251,191,36,.3);}
+.b-accepted{background:rgba(30,144,255,.12);color:var(--blue);border:1px solid rgba(30,144,255,.28);}
+.b-onway{background:rgba(249,115,22,.12);color:var(--orange);border:1px solid rgba(249,115,22,.28);}
+.b-completed{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.28);}
+
+/* FORM */
+.form-card{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;margin-bottom:14px;}
+.form-title{font-size:15.5px;font-weight:700;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;}
+.form-title i{color:var(--blue);}
+.fg{margin-bottom:13px;}
+.fl{font-size:11.5px;font-weight:600;color:var(--text2);margin-bottom:5px;display:block;}
+.fc{width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--rs);padding:11px 13px;color:var(--text);
+  font-size:13.5px;font-family:'Poppins',sans-serif;outline:none;transition:border .2s;}
+.fc:focus{border-color:var(--blue);}
+.fc::placeholder{color:var(--text2);}
+textarea.fc{resize:vertical;min-height:78px;}
+.svc-tag{background:var(--blue-soft);border:1px solid rgba(30,144,255,.28);
+  border-radius:8px;padding:9px 13px;font-size:13px;font-weight:600;
+  color:var(--blue);margin-bottom:13px;display:flex;align-items:center;gap:8px;}
+
+/* ABOUT / CONTACT */
+.info-card{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px;margin-bottom:13px;}
+.info-card h3{font-size:14.5px;font-weight:700;color:var(--blue);margin-bottom:9px;}
+.info-card p{font-size:13px;color:var(--text2);line-height:1.7;}
+.stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.stat-box{flex:1;min-width:76px;text-align:center;
+  background:var(--blue-soft);border:1px solid var(--border);
+  border-radius:var(--rs);padding:11px 6px;}
+.stat-box .sn{font-size:21px;font-weight:800;color:var(--blue);}
+.stat-box .sl{font-size:10.5px;color:var(--text2);}
+.contact-link{display:flex;align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;margin-bottom:12px;
+  text-decoration:none;transition:all .22s;}
+.contact-link:hover{border-color:var(--blue);transform:translateY(-2px);
+  box-shadow:0 8px 24px var(--blue-glow);}
+.c-ic{width:50px;height:50px;border-radius:13px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:21px;}
+.c-txt h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.c-txt p{font-size:12.5px;color:var(--text2);}
+
+/* PRIMARY BTN */
+.btn-primary{width:100%;background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#fff;border:none;border-radius:40px;padding:14px;
+  font-size:15px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;
+  box-shadow:0 4px 18px rgba(30,144,255,.35);transition:all .22s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,144,255,.45);}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:2px 0 16px;}
+
+/* FLOATING BTNS */
+.fab-wrap{position:fixed;bottom:22px;right:14px;
+  display:flex;flex-direction:column;gap:11px;z-index:100;}
+.fab{width:52px;height:52px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:20px;
+  text-decoration:none;color:#fff;
+  box-shadow:0 4px 18px rgba(0,0,0,.4);transition:all .22s;}
+.fab:hover{transform:scale(1.1);}
+.fab-call{background:linear-gradient(135deg,#22c55e,#15803d);}
+.fab-wa{background:linear-gradient(135deg,#25d366,#128c7e);}
+
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:400;
+  display:flex;align-items:center;justify-content:center;padding:16px;
+  opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-ov.open{opacity:1;pointer-events:all;}
+.modal-box{background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px;width:100%;max-width:410px;
+  transform:translateY(28px) scale(.97);transition:transform .25s;
+  max-height:90vh;overflow-y:auto;}
+.modal-ov.open .modal-box{transform:translateY(0) scale(1);}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.modal-title{font-size:15.5px;font-weight:700;}
+.modal-close{background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;}
+
+/* SKELETON */
+.skeleton{background:linear-gradient(90deg,var(--card) 25%,var(--bg3) 50%,var(--card) 75%);
+  background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:12px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* TOAST */
+.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:var(--card);border:1px solid var(--border);border-radius:40px;
+  padding:11px 22px;font-size:13px;font-weight:600;color:var(--text);
+  box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;pointer-events:none;z-index:999;
+  transition:all .3s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.ok{border-color:var(--green);color:var(--green);}
+.toast.err{border-color:var(--red);color:var(--red);}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:48px 18px;color:var(--text2);}
+.empty i{font-size:46px;color:rgba(30,144,255,.15);display:block;margin-bottom:12px;}
+.empty p{font-size:13.5px;line-height:1.6;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.page.active .wrap>*{animation:fadeUp .32s ease both;}
+.page.active .wrap>*:nth-child(1){animation-delay:.04s}
+.page.active .wrap>*:nth-child(2){animation-delay:.09s}
+.page.active .wrap>*:nth-child(3){animation-delay:.14s}
+.page.active .wrap>*:nth-child(4){animation-delay:.19s}
+.page.active .wrap>*:nth-child(5){animation-delay:.24s}
+.page.active .wrap>*:nth-child(6){animation-delay:.29s}
+.page.active .wrap>*:nth-child(7){animation-delay:.34s}
+
+@media(max-width:360px){
+  .hdr-title{font-size:11px;max-width:168px;}
+  .svc-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================
+     HEADER
+============================= -->
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="logo"><i class="fas fa-bolt"></i></div>
+    <div class="hdr-title">Ankit <span>Electrical</span><br>Repairing Home Service</div>
+  </div>
+  <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-ellipsis-v"></i></button>
+  <div class="dropdown" id="dropdown">
+    <a href="#" onclick="navTo('bookings');return false;"><i class="fas fa-calendar-check"></i> My Bookings</a>
+    <a href="#" onclick="navTo('contact');return false;"><i class="fas fa-phone-alt"></i> Contact Electrician</a>
+    <a href="#" onclick="navTo('about');return false;"><i class="fas fa-info-circle"></i> About Service</a>
+  </div>
+</header>
+
+<!-- ============================
+     PAGE: HOME
+============================= -->
+<div class="page active" id="page-home">
+  <div class="wrap">
+
+    <div class="welcome">
+      <div class="welcome-icon"><i class="fas fa-bolt"></i></div>
+      <div>
+        <h2>Welcome to Ankit Electrical</h2>
+        <p>Fast &amp; reliable home electrical repair services at your doorstep.</p>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <i class="fas fa-search s-icon"></i>
+      <input class="search-input" type="text" id="searchInput"
+        placeholder="Search services…" oninput="searchSvc(this.value)"/>
+    </div>
+
+    <div class="sec-title"><i class="fas fa-bolt"></i> Quick Actions</div>
+    <div class="qa-row">
+      <a class="qa-btn qa-call" href="tel:9156462084">
+        <div class="qa-ic"><i class="fas fa-phone"></i></div>
+        <span>Call Electrician</span>
+      </a>
+      <a class="qa-btn qa-wa" href="https://wa.me/919156462084" target="_blank">
+        <div class="qa-ic"><i class="fab fa-whatsapp"></i></div>
+        <span>WhatsApp Chat</span>
+      </a>
+      <button class="qa-btn qa-book" onclick="openBookModal('')">
+        <div class="qa-ic"><i class="fas fa-calendar-plus"></i></div>
+        <span>Book Service</span>
+      </button>
+    </div>
+
+    <div class="sec-title"><i class="fas fa-star"></i> Popular Services</div>
+    <div class="pop-scroll" id="popularList">
+      <div class="skeleton" style="width:148px;height:158px;flex-shrink:0;"></div>
+      <div class="skeleton" style="width:148px;height:158px;flex-shrink:0;"></div>
+      <div class="skeleton" style="width:148px;height:158px;flex-shrink:0;"></div>
+    </div>
+
+    <div class="sec-title"><i class="fas fa-tools"></i> All Services</div>
+    <div class="divider"></div>
+    <div class="svc-grid" id="allList">
+      <div class="skeleton" style="height:200px;"></div>
+      <div class="skeleton" style="height:200px;"></div>
+      <div class="skeleton" style="height:200px;"></div>
+      <div class="skeleton" style="height:200px;"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================
+     PAGE: BOOKINGS
+============================= -->
+<div class="page" id="page-bookings">
+  <div class="wrap">
+    <button class="back-btn" onclick="showPage('home')">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <div class="sec-title"><i class="fas fa-calendar-check"></i> My Bookings</div>
+    <div class="divider"></div>
+    <div id="bookingsList">
+      <div class="empty"><i class="fas fa-spinner fa-spin"></i><p>Loading bookings…</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     PAGE: CONTACT
+============================= -->
+<div class="page" id="page-contact">
+  <div class="wrap">
+    <button class="back-btn" onclick="showPage('home')">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <div class="sec-title"><i class="fas fa-phone"></i> Contact Electrician</div>
+    <div class="divider"></div>
+
+    <a class="contact-link" href="tel:9156462084">
+      <div class="c-ic" style="background:rgba(34,197,94,.15);color:#22c55e;">
+        <i class="fas fa-phone-alt"></i></div>
+      <div class="c-txt"><h4>Call Now</h4><p>+91 9156462084</p></div>
+    </a>
+    <a class="contact-link" href="https://wa.me/919156462084" target="_blank">
+      <div class="c-ic" style="background:rgba(37,211,102,.15);color:#25d366;">
+        <i class="fab fa-whatsapp"></i></div>
+      <div class="c-txt"><h4>WhatsApp Chat</h4><p>Message the electrician</p></div>
+    </a>
+
+    <div class="info-card" style="margin-top:6px;">
+      <h3><i class="fas fa-clock" style="margin-right:7px;"></i>Working Hours</h3>
+      <p>Monday – Saturday &nbsp;8:00 AM – 8:00 PM<br>Sunday &nbsp;10:00 AM – 4:00 PM</p>
+    </div>
+    <div class="info-card">
+      <h3><i class="fas fa-map-marker-alt" style="margin-right:7px;"></i>Service Area</h3>
+      <p>We provide home electrical repair services across local areas. Call us to check availability in your location.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     PAGE: ABOUT
+============================= -->
+<div class="page" id="page-about">
+  <div class="wrap">
+    <button class="back-btn" onclick="showPage('home')">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <div class="sec-title"><i class="fas fa-info-circle"></i> About Service</div>
+    <div class="divider"></div>
+
+    <div class="info-card">
+      <h3>About Ankit Electrical</h3>
+      <p>Ankit Electrical Repairing Home Service is a trusted provider of fast, reliable, and affordable electrical repair services at your home — with 100% satisfaction guaranteed.</p>
+      <div class="stats-row">
+        <div class="stat-box"><div class="sn">5+</div><div class="sl">Years Exp.</div></div>
+        <div class="stat-box"><div class="sn">500+</div><div class="sl">Happy Clients</div></div>
+        <div class="stat-box"><div class="sn">24/7</div><div class="sl">Support</div></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <h3>Why Choose Us?</h3>
+      <p>✅ Certified &amp; experienced electrician<br>
+         ✅ Affordable &amp; transparent pricing<br>
+         ✅ Same-day service available<br>
+         ✅ Safe &amp; quality-assured work<br>
+         ✅ 100% satisfaction guarantee</p>
+    </div>
+    <div class="info-card">
+      <h3>Our Services</h3>
+      <p>Fan Repair, Switch Board Repair, House Wiring, LED Repair, Inverter Repair, MCB/Fuse Repair, and many more home electrical services.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     PAGE: SERVICE DETAIL
+============================= -->
+<div class="page" id="page-detail">
+  <div class="wrap">
+    <button class="back-btn" onclick="showPage('home')">
+      <i class="fas fa-arrow-left"></i> Back to Services
+    </button>
+    <img id="dImg" class="detail-img"
+      src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600" alt="Service"/>
+    <div id="dName" class="detail-name"></div>
+    <div id="dPrice" class="detail-price"></div>
+    <div id="dDesc" class="detail-desc"></div>
+    <button class="btn-primary" onclick="openBookModal(window._detailSvc||'')">
+      <i class="fas fa-calendar-plus" style="margin-right:8px;"></i>Book This Service
+    </button>
+  </div>
+</div>
+
+<!-- ============================
+     FLOATING BUTTONS
+============================= -->
+<div class="fab-wrap">
+  <a class="fab fab-call" href="tel:9156462084" title="Call Electrician">
+    <i class="fas fa-phone"></i></a>
+  <a class="fab fab-wa" href="https://wa.me/919156462084" target="_blank" title="WhatsApp">
+    <i class="fab fa-whatsapp"></i></a>
+</div>
+
+<!-- ============================
+     BOOK SERVICE MODAL
+============================= -->
+<div class="modal-ov" id="bookModal">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title">
+        <i class="fas fa-calendar-plus" style="color:var(--blue);margin-right:8px;"></i>Book a Service
+      </div>
+      <button class="modal-close" onclick="closeBookModal()">
+        <i class="fas fa-times"></i></button>
+    </div>
+
+    <div id="bkSvcTag" class="svc-tag" style="display:none;">
+      <i class="fas fa-tools"></i><span id="bkSvcName"></span>
+    </div>
+
+    <div class="fg">
+      <label class="fl">Select Service *</label>
+      <select class="fc" id="bkService">
+        <option value="">-- Select a Service --</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label class="fl">Your Name *</label>
+      <input class="fc" type="text" id="bkName" placeholder="Full name"/>
+    </div>
+    <div class="fg">
+      <label class="fl">Mobile Number *</label>
+      <input class="fc" type="tel" id="bkPhone" placeholder="10-digit mobile number" maxlength="10"/>
+    </div>
+    <div class="fg">
+      <label class="fl">Address *</label>
+      <textarea class="fc" id="bkAddress" placeholder="Your full address"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Problem Description</label>
+      <textarea class="fc" id="bkProblem" placeholder="Describe your electrical problem…"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Preferred Visit Time *</label>
+      <input class="fc" type="datetime-local" id="bkTime"/>
+    </div>
+    <button class="btn-primary" onclick="submitBooking()">
+      <i class="fas fa-paper-plane" style="margin-right:8px;"></i>Submit Booking
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================
+     PLAIN SCRIPT — ALL GLOBAL FUNCTIONS
+     (Must be plain <script>, NOT type="module")
+============================= -->
+<script>
+/* ---------- PAGE NAVIGATION ---------- */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  var pg = document.getElementById('page-' + name);
+  if (pg) { pg.classList.add('active'); }
+  window.scrollTo(0, 0);
+}
+
+/* ---------- THREE-DOT MENU ---------- */
+function toggleMenu() {
+  document.getElementById('dropdown').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('dropdown').classList.remove('open');
+}
+function navTo(name) {
+  showPage(name);
+  closeMenu();
+}
+
+/* Close menu when clicking anywhere else */
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.menu-btn') && !e.target.closest('.dropdown')) {
+    closeMenu();
+  }
+});
+
+/* ---------- BOOK MODAL ---------- */
+function openBookModal(svcName) {
+  if (svcName) {
+    document.getElementById('bkSvcTag').style.display = 'flex';
+    document.getElementById('bkSvcName').textContent = svcName;
+    document.getElementById('bkService').value = svcName;
+  } else {
+    document.getElementById('bkSvcTag').style.display = 'none';
+  }
+  document.getElementById('bookModal').classList.add('open');
+}
+function closeBookModal() {
+  document.getElementById('bookModal').classList.remove('open');
+}
+/* Close on overlay click */
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('bookModal').addEventListener('click', function(e) {
+    if (e.target === this) { closeBookModal(); }
+  });
+});
+
+/* ---------- TOAST ---------- */
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(function() { t.className = 'toast'; }, 3200);
+}
+
+/* ---------- SEARCH ---------- */
+function searchSvc(q) {
+  if (typeof window._allSvc === 'undefined') return;
+  var filtered = window._allSvc.filter(function(s) {
+    return s.name.toLowerCase().includes(q.toLowerCase()) ||
+      (s.description && s.description.toLowerCase().includes(q.toLowerCase()));
+  });
+  renderAll(filtered);
+}
+
+/* ---------- RENDER POPULAR ---------- */
+function renderPopular(list) {
+  var el = document.getElementById('popularList');
+  if (!list || !list.length) { el.innerHTML = ''; return; }
+  el.innerHTML = list.slice(0, 6).map(function(s) {
+    return '<div class="card-sm" onclick="openDetail(\'' + s.id + '\')">' +
+      '<img src="' + (s.image || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400') + '"' +
+      ' alt="' + s.name + '" onerror="this.src=\'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400\'" loading="lazy"/>' +
+      '<div class="csb">' +
+      '<div class="csn">' + s.name + '</div>' +
+      '<div class="csd">' + (s.description || '') + '</div>' +
+      '<div class="csp">' + (s.price || 'On Request') + '</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+/* ---------- RENDER ALL ---------- */
+function renderAll(list) {
+  var el = document.getElementById('allList');
+  if (!list || !list.length) {
+    el.innerHTML = '<div class="empty"><i class="fas fa-tools"></i><p>No services found.</p></div>';
+    return;
+  }
+  el.innerHTML = list.map(function(s) {
+    return '<div class="card-g" onclick="openDetail(\'' + s.id + '\')">' +
+      '<img src="' + (s.image || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400') + '"' +
+      ' alt="' + s.name + '" onerror="this.src=\'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400\'" loading="lazy"/>' +
+      '<div class="cgb">' +
+      '<div class="cgn">' + s.name + '</div>' +
+      '<div class="cgd">' + (s.description || '') + '</div>' +
+      '<div class="cgr">' +
+      '<span class="cgp">' + (s.price || 'On Request') + '</span>' +
+      '<button class="btn-bk" onclick="event.stopPropagation();openBookModal(\'' + s.name + '\')">Book</button>' +
+      '</div></div></div>';
+  }).join('');
+}
+
+/* ---------- OPEN DETAIL ---------- */
+function openDetail(id) {
+  var s = (window._allSvc || []).find(function(x) { return x.id === id; });
+  if (!s) return;
+  window._detailSvc = s.name;
+  document.getElementById('dImg').src =
+    s.image || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600';
+  document.getElementById('dName').textContent = s.name;
+  document.getElementById('dPrice').textContent = s.price || 'On Request';
+  document.getElementById('dDesc').textContent = s.description || '';
+  showPage('detail');
+}
+
+/* ---------- POPULATE BOOK SELECT ---------- */
+function populateSelect(list) {
+  var sel = document.getElementById('bkService');
+  sel.innerHTML = '<option value="">-- Select a Service --</option>' +
+    list.map(function(s) {
+      return '<option value="' + s.name + '">' + s.name + '</option>';
+    }).join('');
+}
+
+/* ---------- STATUS HELPERS ---------- */
+function statusClass(s) {
+  if (s === 'Accepted') return 'b-accepted';
+  if (s === 'On The Way') return 'b-onway';
+  if (s === 'Completed') return 'b-completed';
+  return 'b-pending';
+}
+function statusIcon(s) {
+  if (s === 'Accepted') return 'fa-check-circle';
+  if (s === 'On The Way') return 'fa-motorcycle';
+  if (s === 'Completed') return 'fa-check-double';
+  return 'fa-hourglass-half';
+}
+
+/* Expose everything */
+window.showPage      = showPage;
+window.toggleMenu    = toggleMenu;
+window.closeMenu     = closeMenu;
+window.navTo         = navTo;
+window.openBookModal = openBookModal;
+window.closeBookModal= closeBookModal;
+window.openDetail    = openDetail;
+window.searchSvc     = searchSvc;
+window.showToast     = showToast;
+window.renderPopular = renderPopular;
+window.renderAll     = renderAll;
+window.populateSelect= populateSelect;
+window.statusClass   = statusClass;
+window.statusIcon    = statusIcon;
+</script>
+
+<!-- ============================
+     FIREBASE MODULE SCRIPT
+============================= -->
+<script type="module">
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue, push, set }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+/* ============================================================
+   🔥 REPLACE THIS WITH YOUR OWN FIREBASE CONFIG
+   Steps:
+   1. Go to https://console.firebase.google.com
+   2. Create / open your project
+   3. Project Settings → Your apps → Web → Copy config
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyDecSODdGHeDvMAaymS-VlSutPWeGYB75Y",
+  authDomain: "electronic-a8e02.firebaseapp.com",
+  databaseURL: "https://electronic-a8e02-default-rtdb.firebaseio.com",
+  projectId: "electronic-a8e02",
+  storageBucket: "electronic-a8e02.firebasestorage.app",
+  messagingSenderId: "385038992718",
+  appId: "1:385038992718:web:1de5bacae4b48ab36a0a1f"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+/* ---- DEFAULT SERVICES (shown if Firebase is empty) ---- */
+function defaultServices() {
+  return [
+    { id:'d1', name:'Fan Repair',
+      description:'Ceiling fans, table fans — speed issues, noise, not working. All fixed.',
+      price:'₹200',
+      image:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+    { id:'d2', name:'Switch Board Repair',
+      description:'Loose switches, sparking boards, socket replacements & wiring fix.',
+      price:'₹150',
+      image:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' },
+    { id:'d3', name:'House Wiring',
+      description:'Complete house wiring, rewiring old connections, safety upgrades.',
+      price:'₹500',
+      image:'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=400&q=80' },
+    { id:'d4', name:'LED Repair',
+      description:'LED bulb, tube light, strip light installation & repair.',
+      price:'₹100',
+      image:'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&q=80' },
+    { id:'d5', name:'Inverter Repair',
+      description:'Home inverter & UPS repair, battery check, new installation.',
+      price:'₹350',
+      image:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=80' },
+    { id:'d6', name:'MCB / Fuse Repair',
+      description:'Tripping MCB, blown fuse, distribution board issues — all fixed.',
+      price:'₹250',
+      image:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+  ];
+}
+
+/* ---- LOAD SERVICES ---- */
+onValue(ref(db, 'services'), function(snap) {
+  var data = snap.val();
+  var list = data
+    ? Object.entries(data).map(function(e) { return Object.assign({ id: e[0] }, e[1]); })
+    : defaultServices();
+  window._allSvc = list;
+  renderPopular(list);
+  renderAll(list);
+  populateSelect(list);
+});
+
+/* ---- LOAD BOOKINGS ---- */
+onValue(ref(db, 'bookings'), function(snap) {
+  var data = snap.val();
+  var el   = document.getElementById('bookingsList');
+  var phone = localStorage.getItem('ankitUserPhone') || '';
+
+  if (!data) {
+    el.innerHTML = '<div class="empty"><i class="fas fa-calendar-times"></i>' +
+      '<p>No bookings yet.<br>Book a service to see status here!</p></div>';
+    return;
+  }
+
+  var all = Object.entries(data)
+    .map(function(e) { return Object.assign({ id: e[0] }, e[1]); })
+    .reverse();
+
+  var mine = phone ? all.filter(function(b) { return b.phone === phone; }) : all;
+
+  if (!mine.length) {
+    el.innerHTML = '<div class="empty"><i class="fas fa-calendar-times"></i>' +
+      '<p>No bookings found for your number.<br>Book a service first!</p></div>';
+    return;
+  }
+
+  el.innerHTML = mine.map(function(b) {
+    var st = b.status || 'Pending';
+    var dt = '';
+    try { dt = b.time ? new Date(b.time).toLocaleString() : ''; } catch(e) {}
+    return '<div class="bk-card">' +
+      '<div class="bk-svc"><i class="fas fa-tools" style="color:var(--blue);margin-right:6px;"></i>' + (b.service || 'Service') + '</div>' +
+      '<div class="bk-row"><i class="fas fa-user"></i><span>' + (b.name || '-') + '</span></div>' +
+      '<div class="bk-row"><i class="fas fa-phone"></i><span>' + (b.phone || '-') + '</span></div>' +
+      '<div class="bk-row"><i class="fas fa-map-marker-alt"></i><span>' + (b.address || '-') + '</span></div>' +
+      (b.problem ? '<div class="bk-row"><i class="fas fa-exclamation-circle"></i><span>' + b.problem + '</span></div>' : '') +
+      '<div class="bk-row"><i class="fas fa-clock"></i><span>' + dt + '</span></div>' +
+      '<span class="badge ' + statusClass(st) + '">' +
+      '<i class="fas ' + statusIcon(st) + '"></i> ' + st + '</span>' +
+      '</div>';
+  }).join('');
+});
+
+/* ---- SUBMIT BOOKING ---- */
+window.submitBooking = async function() {
+  var name    = document.getElementById('bkName').value.trim();
+  var phone   = document.getElementById('bkPhone').value.trim();
+  var address = document.getElementById('bkAddress').value.trim();
+  var problem = document.getElementById('bkProblem').value.trim();
+  var time    = document.getElementById('bkTime').value;
+  var service = document.getElementById('bkService').value;
+
+  if (!name || !phone || !address || !time || !service) {
+    showToast('Please fill all required fields ⚠️', 'err'); return;
+  }
+  if (!/^\d{10}$/.test(phone)) {
+    showToast('Enter a valid 10-digit mobile number', 'err'); return;
+  }
+
+  try {
+    var newRef = push(ref(db, 'bookings'));
+    await set(newRef, {
+      name: name, phone: phone, address: address,
+      problem: problem, service: service,
+      time: time, status: 'Pending',
+      createdAt: Date.now()
+    });
+    localStorage.setItem('ankitUserPhone', phone);
+    closeBookModal();
+    showToast('Booking submitted successfully! ✅', 'ok');
+    ['bkName','bkPhone','bkAddress','bkProblem','bkTime'].forEach(function(id) {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('bkService').value = '';
+    document.getElementById('bkSvcTag').style.display = 'none';
+    window._detailSvc = '';
+  } catch(e) {
+    showToast('Error! Please check Firebase config.', 'err');
+  }
+};
+</script>
+
+</body>
+</html>
